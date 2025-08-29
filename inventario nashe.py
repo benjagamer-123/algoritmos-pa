@@ -79,14 +79,15 @@ while True:
                         print(f"stock: {producto['stock']}")
                         print("-------------------------")
                         encontrado = True
-                        
+           
             if not encontrado:
                 print("producto no encontrado.")
             else:
                 nuevo_stock = int(input("agregar stock: "))
                 producto['stock'] = producto['stock'] + nuevo_stock
                 print("nuevo stock:", producto['stock'])
-                
+            if nuevo_stock < 0:
+                print("Datos inválidos. Intenta de nuevo.")
                 
         case "5":
             if not inventario:
@@ -106,22 +107,25 @@ while True:
                         encontrado = True
                         
             producto_vendido = int(input("productos vendidos: "))
-            if producto_vendido > producto['stock']:
-                print("no tienes suficiente stock para realizar la venta")
-                
-                
-            if not encontrado:
-                print("producto no encontrado.")
+            if producto_vendido <= 0:
+                print("Datos inválidos. Intenta de nuevo.")
             else:
-                producto['stock'] = producto['stock'] - producto_vendido
-                print("nuevo producto:", producto['stock'])
+                if producto_vendido > producto['stock']:
+                    print("no tienes suficiente stock para realizar la venta")
                 
-            if producto['stock'] == 0:
-                 for producto in inventario:
-                    if producto == pro_vendido:
-                        producto.remove(inventario)
+                
+                if not encontrado:
+                    print("producto no encontrado.")
+                else:
+                    producto['stock'] = producto['stock'] - producto_vendido
+                    print("nuevo producto:", producto['stock'])
+                
+                if producto['stock'] == 0:
+                    for producto in inventario:
+                        if producto == pro_vendido:
+                            producto.remove(inventario)
                        
-                        print(f"Productos {pro_vendido} eliminados.")
+                            print(f"Productos {pro_vendido} eliminados.")
               
         case "6":
             if not inventario:
